@@ -5,5 +5,3 @@ Client-side Fabric mod based on PvPTiers Tiers. Player lookups run directly from
 The game client resolves player names/UUIDs, queries the providers asynchronously, caches profile results, and combines their rankings. MCTiers and PvPTiers profile routes are tried by username first and UUID as a fallback. PvPHQ and SAPVP use their public player search routes, while MCPVP searches its overall tier data and falls back to kit queries if needed.
 
 MCTiers/PvPTiers region and ranking metadata populate the profile header. Region conflicts follow SA, AU, ME, AS, AF, EU, NA. Retired rankings are retained; active rankings win an equal-tier tie, while weaker active tiers do not replace stronger retired tiers.
-
-The previous local website and server process are not part of this build. The Modrinth Gradle task uses `modrinth_project_id`; set it to the port's own project ID after creating that project. It no longer targets the original Tiers page.
