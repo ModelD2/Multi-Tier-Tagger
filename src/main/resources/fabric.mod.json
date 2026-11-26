@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "tierbridge_tiertagger",
+  "version": "${version}",
+  "name": "TierBridge Tier Tagger",
+  "description": "Community port of Tiers with client-side tier lookups from MCTiers, PvPTiers, PvPHQ, MCPVP, and SAPVP",
+  "authors": [
+    "Flavio6561 (original Tiers author)"
+  ],
+  "license": "GPL-3.0",
+  "contact": {
+    "homepage": "https://modrinth.com/mod/tiers"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "Original Tiers mod": "https://modrinth.com/mod/tiers",
+        "Original source": "https://github.com/PvPTiers/Tiers"
+      }
+    }
+  },
+  "icon": "assets/tierbridge_tiertagger/icon.png",
+  "entrypoints": {
+    "client": [
+      "com.tiers.TiersClient"
+    ],
+    "modmenu": [
+      "com.tiers.misc.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "tiers.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.5",
+    "minecraft": ["${minecraft_version}"],
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

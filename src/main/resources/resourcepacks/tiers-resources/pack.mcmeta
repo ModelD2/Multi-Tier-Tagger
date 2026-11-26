@@ -1,0 +1,9 @@
+{
+  "pack": {
+    "pack_format": 29,
+    "description": "Icons and colors for TierBridge Tier Tagger",
+    "supported_formats": [29, 97],
+    "min_format": 29,
+    "max_format": 97
+  }
+}

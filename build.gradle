@@ -1,0 +1,77 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+    id 'maven-publish'
+    id "com.modrinth.minotaur" version "2.10.0"
+}
+
+minecraft_version = project.minecraft_version
+simple_version = project.simple_version
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    maven { url = "https://maven.shedaniel.me/" }
+    maven { url = "https://maven.terraformersmc.com/releases/" }
+}
+
+loom {
+    splitEnvironmentSourceSets()
+    mods {
+        "tierbridge_tiertagger" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    api "com.terraformersmc:modmenu:${modmenu_version}"
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version, minecraft_version: project.minecraft_version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 25
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    // Set this after creating a separate Modrinth project for the port.
+    projectId = providers.gradleProperty("modrinth_project_id").getOrElse("SET_YOUR_MODRINTH_PROJECT_ID")
+    versionNumber = "${project.version}"
+    versionName = "TierBridge Tier Tagger ${project.version}"
+    changelog = "Community port of Tiers with direct in-game lookups from five tier sources."
+    uploadFile = jar
+    versionType = "beta"
+    gameVersions = [project.minecraft_version]
+    loaders = ["fabric", "quilt"]
+    environment = "client_only"
+
+    dependencies {
+        required.project "P7dR8mSH"
+        optional.project "mOgUt4GM"
+    }
+}
+
+tasks.modrinth.dependsOn(tasks.jar)
